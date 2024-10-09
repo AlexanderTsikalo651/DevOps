@@ -2,7 +2,7 @@ services:
   front:
     build: ../fronted1
     ports:
-      - "5000:5000"
+      - "5002:5000"
     environment:
       - FLASK_APP=add
     command: ["flask", "run", "--host=0.0.0.0"]
@@ -10,7 +10,7 @@ services:
   back:
     build: ../backend1
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       - FLASK_APP=back
     command: ["flask", "run", "--host=0.0.0.0"]
