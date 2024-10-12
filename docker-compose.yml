@@ -1,4 +1,3 @@
-version: '3'
 services:
   backend:
     build: C:\\Users\\tsika\\PycharmProjects\\DevOps\\backend1
