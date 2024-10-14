@@ -18,13 +18,12 @@ services:
       - "5002:5002"
     environment:
       XDG_RUNTIME_DIR: /tmp/runtime-dir
+      BACKEND_URL: http://backend1:5000
     command: ["python", "frontend1.py"]
     depends_on:
       - backend1
     networks:
       - backend-network
-    environment:
-      BACKEND_URL: http://backend1:5000
 
   nginx:
     image: nginx:latest
