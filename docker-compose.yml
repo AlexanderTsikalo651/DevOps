@@ -20,8 +20,9 @@ services:
     depends_on:
       - backend1
     networks:
-      - backend-network
-    hostname: frontend1
+      backend-network:
+        aliases:
+          - localhost
 
   nginx:
     image: nginx:latest
