@@ -19,6 +19,7 @@ services:
       BACKEND_URL: http://backend1:5000  # Set the backend URL here
     depends_on:
       - backend1
+    command: ["python", "frontend1.py", "${BACKEND_URL}"]  # Pass the BACKEND_URL as an argument to frontend1.py
 
   nginx:
     image: nginx:latest
