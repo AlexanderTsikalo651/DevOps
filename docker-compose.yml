@@ -1,4 +1,3 @@
-
 services:
   backend1:
     build: ./DevOps/backend1
@@ -23,8 +22,6 @@ services:
     networks:
       - backend-network
     hostname: frontend1
-    extra_hosts:
-      - "backend1:172.17.0.2"
 
   nginx:
     image: nginx:latest
