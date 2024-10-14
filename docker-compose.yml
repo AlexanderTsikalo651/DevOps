@@ -1,6 +1,6 @@
 services:
   backend1:
-    build: ./backend1
+    build: .
     ports:
       - "5000:5000"
     environment:
@@ -8,7 +8,7 @@ services:
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
 
   frontend1:
-    build: ./frontend1
+    build: .
     ports:
       - "5002:5002"
 
