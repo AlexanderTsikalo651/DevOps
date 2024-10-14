@@ -6,17 +6,16 @@ services:
     environment:
         FLASK_APP: backend1
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-    hostname: back
+    depends_on: []
 
   frontend1:
-  build: ./DevOps/frontend1
-  ports:
-    - "5002:5002"
-  hostname: front
-  depends_on:
-    - backend1
-  environment:
-    XDG_RUNTIME_DIR: /tmp/runtime-dir
+    build: ./DevOps/frontend1
+    ports:
+      - "5002:5002"
+    environment:
+      XDG_RUNTIME_DIR: /tmp/runtime-dir
+    depends_on:
+      - backend1
 
   nginx:
     image: nginx:latest
