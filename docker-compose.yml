@@ -6,13 +6,13 @@ services:
     environment:
       - FLASK_APP=backend1
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-    hostname: backend1
+    hostname: localhost
 
   frontend1:
     build: ../frontend1
     ports:
       - "5002:5002"
-    hostname: frontend1
+    hostname: localhost
 
   nginx:
     image: nginx:latest
