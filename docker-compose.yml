@@ -9,6 +9,8 @@ services:
       FLASK_APP: backend1
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
     depends_on: []
+    networks:
+      - backend-network
 
   frontend1:
     build: ./DevOps/frontend1
@@ -16,10 +18,11 @@ services:
       - "5002:5002"
     environment:
       XDG_RUNTIME_DIR: /tmp/runtime-dir
-      BACKEND_URL: http://backend1:5000
-    command: ["sh", "-c", "export BACKEND_URL=http://backend1:5000 && python frontend1.py"]
+    command: ["python", "frontend1.py"]
     depends_on:
       - backend1
+    networks:
+      - backend-network
 
   nginx:
     image: nginx:latest
@@ -30,3 +33,9 @@ services:
     depends_on:
       - backend1
       - frontend1
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
