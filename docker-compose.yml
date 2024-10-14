@@ -1,3 +1,9 @@
+version: '3'
+
+networks:
+  devops-network:
+    driver: bridge
+
 services:
   backend1:
     build: ./DevOps/backend1
@@ -7,6 +13,8 @@ services:
       FLASK_APP: backend1
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
     depends_on: []
+    networks:
+      - devops-network
 
   frontend1:
     build: ./DevOps/frontend1
@@ -14,9 +22,12 @@ services:
       - "5002:5002"
     environment:
       XDG_RUNTIME_DIR: /tmp/runtime-dir
-      BACKEND_URL: http://backend1:5000/data
     depends_on:
       - backend1
+    networks:
+      - devops-network
+    extra_hosts:
+      - "localhost:backend1"
 
   nginx:
     image: nginx:latest
@@ -27,3 +38,5 @@ services:
     depends_on:
       - backend1
       - frontend1
+    networks:
+      - devops-network
