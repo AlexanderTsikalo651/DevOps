@@ -16,9 +16,8 @@ services:
       - "5002:5002"
     environment:
       XDG_RUNTIME_DIR: /tmp/runtime-dir
+      BACKEND_URL: http://backend1:5000  # Set the backend URL here
     depends_on:
-      - backend1
-    links:
       - backend1
 
   nginx:
