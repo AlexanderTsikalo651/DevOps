@@ -9,13 +9,14 @@ services:
     depends_on: []
 
   frontend1:
-    build: ./DevOps/frontend1
-    ports:
-      - "5002:5002"
-    environment:
-      XDG_RUNTIME_DIR: /tmp/runtime-dir
-    depends_on:
-      - backend1
+  build: ./DevOps/frontend1
+  ports:
+    - "5002:5002"
+  environment:
+    XDG_RUNTIME_DIR: /tmp/runtime-dir
+    BACKEND_URL: http://backend1:5000/data
+  depends_on:
+    - backend1
 
   nginx:
     image: nginx:latest
