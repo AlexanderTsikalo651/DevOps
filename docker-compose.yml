@@ -1,18 +1,18 @@
 services:
   backend1:
-    build: ../backend1
+    build: ./DevOps/backend1
     ports:
       - "5000:5000"
     environment:
       - FLASK_APP=backend1
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-    hostname: localhost
+    hostname: back
 
   frontend1:
-    build: ../frontend1
+    build: ./DevOps/frontend1
     ports:
       - "5002:5002"
-    hostname: localhost
+    hostname: front
     depends_on:
       - backend1
 
