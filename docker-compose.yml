@@ -16,7 +16,7 @@ services:
   depends_on:
     - backend1
   environment:
-    - XDG_RUNTIME_DIR=/tmp/runtime-dir
+    XDG_RUNTIME_DIR: /tmp/runtime-dir
 
   nginx:
     image: nginx:latest
