@@ -9,12 +9,14 @@ services:
     hostname: back
 
   frontend1:
-    build: ./DevOps/frontend1
-    ports:
-      - "5002:5002"
-    hostname: front
-    depends_on:
-      - backend1
+  build: ./DevOps/frontend1
+  ports:
+    - "5002:5002"
+  hostname: front
+  depends_on:
+    - backend1
+  environment:
+    - XDG_RUNTIME_DIR=/tmp/runtime-dir
 
   nginx:
     image: nginx:latest
