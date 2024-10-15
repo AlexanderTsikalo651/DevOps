@@ -9,6 +9,8 @@ services:
     depends_on: []
     networks:
       - backend-network
+    network_aliases:
+      - localhost
 
   frontend1:
     build: ./DevOps/frontend1
@@ -20,9 +22,7 @@ services:
     depends_on:
       - backend1
     networks:
-      backend-network:
-        aliases:
-          - localhost
+      - backend-network
 
   nginx:
     image: nginx:latest
