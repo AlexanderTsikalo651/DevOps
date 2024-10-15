@@ -10,7 +10,7 @@ services:
     networks:
       backend-network:
         aliases:
-          - localhost
+          - backend1
 
   frontend1:
     build: ./DevOps/frontend1
@@ -18,7 +18,7 @@ services:
       - "5002:5002"
     environment:
       XDG_RUNTIME_DIR: /tmp/runtime-dir
-    command: ["python", "frontend1.py"]
+    command: ["python", "frontend1.py", "--host=0.0.0.0", "--port=5002"]
     depends_on:
       - backend1
     networks:
