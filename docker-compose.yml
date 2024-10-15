@@ -23,8 +23,9 @@ services:
     networks:
       backend-network:
         aliases:
-          - backend1
           - localhost
+    extra_hosts:
+      - "localhost:host-gateway"
 
   nginx:
     image: nginx:latest
