@@ -1,6 +1,6 @@
 services:
   backend1:
-    build: ./DevOps/backend1
+    build: ../backend1
     ports:
       - "5000:5000"
     environment:
@@ -11,7 +11,7 @@ services:
       - backend-network
 
   frontend1:
-    build: ./DevOps/frontend1
+    build: ../frontend1
     ports:
       - "5002:5002"
     environment:
