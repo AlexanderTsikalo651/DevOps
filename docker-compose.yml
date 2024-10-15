@@ -1,3 +1,4 @@
+version: '3'
 services:
   backend1:
     build: ./DevOps/backend1
@@ -22,6 +23,7 @@ services:
     networks:
       backend-network:
         aliases:
+          - backend1
           - localhost
 
   nginx:
