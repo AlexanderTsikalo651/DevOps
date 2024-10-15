@@ -1,4 +1,3 @@
-version: '3'
 services:
   backend1:
     build: ./DevOps/backend1
