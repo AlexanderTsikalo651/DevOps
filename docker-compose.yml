@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   backend1:
     build: ../backend1
@@ -14,9 +16,8 @@ services:
     ports:
       - "5002:5002"
     environment:
-      DISPLAY: ${DISPLAY}  # Используйте переменную окружения DISPLAY
-      XDG_RUNTIME_DIR: /tmp/runtime-dir
-    command: ["python", "frontend1.py"]
+      DISPLAY: :99  # Установите DISPLAY на :99 для Xvfb
+    command: ["sh", "-c", "Xvfb :99 -screen 0 1024x768x16 & python frontend1.py --host=0.0.0.0 --port=5002"]
     depends_on:
       - backend1
     networks:
