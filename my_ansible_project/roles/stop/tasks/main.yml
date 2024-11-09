@@ -1,0 +1,6 @@
+---
+- name: Остановка микросервисов через Docker Compose
+  command: docker-compose down
+  args:
+    chdir: /home/alexander/Рабочий стол/DevOps/DevOps/docker-compose.yml
+  tags: stop

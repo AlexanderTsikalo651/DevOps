@@ -1,0 +1,24 @@
+---
+- name: Клонирование репозитория фронтенда
+  git:
+    repo: 'https://github.com/AlexanderTsikalo651/frontend1.git'
+    dest: /path/to/frontend
+  tags: clone
+
+- name: Клонирование репозитория бэкенда
+  git:
+    repo: 'https://github.com/AlexanderTsikalo651/backend1.git'
+    dest: /path/to/backend
+  tags: clone
+
+- name: Клонирование репозитория DevOps
+  git:
+    repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
+    dest: /path/to/DevOps
+  tags: clone
+
+- name: Запуск микросервисов через Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /home/alexander/Рабочий стол/DevOps/DevOps
+  tags: start
