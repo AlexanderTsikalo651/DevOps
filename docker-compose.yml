@@ -14,14 +14,13 @@ services:
     ports:
       - "5002:5002"
     environment:
-      DISPLAY: ${DISPLAY}
+      DISPLAY: :1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix 
-    command: ["python", "frontend1.py", "--host=0.0.0.0", "--port=5002"]
+    command: ["sh", "-c", "vncserver :1 -geometry 1280x800 -depth 24 && python frontend1.py --host=0.0.0.0 --port=5002"]
     depends_on:
       - backend1
-    network_mode: "host"  
-
+    network_mode: "host"
 
   nginx:
     image: nginx:latest
