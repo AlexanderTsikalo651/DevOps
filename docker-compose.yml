@@ -17,7 +17,7 @@ services:
       DISPLAY: :1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix 
-    command: ["sh", "-c", "vncserver :1 -geometry 1280x800 -depth 24 && python frontend1.py --host=0.0.0.0 --port=5002"]
+    command: ["sh", "-c", "vncserver -kill :1 || echo 'No VNC server running'; rm -rf /tmp/.X11-unix/X1; vncserver :1 -geometry 1280x800 -depth 24 && python frontend1.py --host=0.0.0.0 --port=5002"]
     depends_on:
       - backend1
     network_mode: "host"
