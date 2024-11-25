@@ -4,3 +4,8 @@
   roles:
     - docker
     - start
+
+- hosts: all
+  become: yes
+  roles:
+    - stop
