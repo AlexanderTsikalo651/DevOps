@@ -1,0 +1,10 @@
+---
+- name: Start applications
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Start services with Docker Compose
+    command: docker-compose up -d
+    args:
+      chdir: /home/alexander/Рабочий стол/DevOps/DevOps

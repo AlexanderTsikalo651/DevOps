@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Prepare Environment') {
+            steps {
+                ansiblePlaybook(
+                    playbook: 'ansible/prepare_environment.yml',
+                    inventory: 'inventory/hosts',
+                    credentialsId: 'ansible-credentials'
+                )
+            }
+        }
+
+        stage('Start Applications') {
+            steps {
+                ansiblePlaybook(
+                    playbook: 'ansible/start_applications.yml',
+                    inventory: 'inventory/hosts',
+                    credentialsId: 'ansible-credentials'
+                )
+            }
+        }
+    }
+}
