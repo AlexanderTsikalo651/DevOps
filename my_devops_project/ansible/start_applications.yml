@@ -5,32 +5,15 @@
   tasks:
     - name: Проверка наличия файла docker-compose.yml
       stat:
-        path: "/var/lib/jenkins/workspace/lr/DevOps/docker-compose.yml"
-      register: compose_file
+        path: "/home/alexander/Рабочий стол/DevOps/DevOps/docker-compose.yml"
+      register: docker_compose_file
 
     - name: Ошибка, если файл docker-compose.yml не найден
       fail:
-        msg: "Файл docker-compose.yml не найден в директории /var/lib/jenkins/workspace/lr/DevOps"
-      when: not compose_file.stat.exists
-
-    - name: Вывод текущей директории
-      command: pwd
-      register: current_directory
-
-    - name: Печать текущей директории
-      debug:
-        var: current_directory.stdout
+        msg: "Файл docker-compose.yml не найден!"
+      when: not docker_compose_file.stat.exists
 
     - name: Запуск сервисов с помощью Docker Compose
       command: docker-compose up -d
       args:
-        chdir: "/var/lib/jenkins/workspace/lr/DevOps"
-      when: compose_file.stat.exists
-
-    - name: Проверка прав доступа к docker-compose.yml
-      command: ls -l /var/lib/jenkins/workspace/lr/DevOps/docker-compose.yml
-      register: permissions_check
-
-    - name: Печать прав доступа к файлу
-      debug:
-        var: permissions_check.stdout
+        chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
