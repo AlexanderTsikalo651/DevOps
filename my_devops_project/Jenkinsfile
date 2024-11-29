@@ -1,32 +1,32 @@
 pipeline {
     agent any
 
-    
-
     stages {
         stage('Prepare Environment') {
             steps {
-                ansiblePlaybook(
-                    playbook: 'ansible/prepare_environment.yml',
-                    inventory: 'inventory/hosts',
-                    credentialsId: 'ansible-credentials'
-                )
+                withCredentials([usernamePassword(credentialsId: 'ansible-credentials', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASS')]) {
+                    ansiblePlaybook(
+                        playbook: 'ansible/prepare_environment.yml',
+                        inventory: 'inventory/hosts',
+                        extraVars: [
+                            ansible_ssh_pass: "${ANSIBLE_PASS}"
+                        ]
+                    )
+                }
             }
         }
 
         stage('Start Applications') {
             steps {
-                ansiblePlaybook(
-                    playbook: 'ansible/start_applications.yml',
-                    inventory: 'inventory/hosts',
-                    credentialsId: 'ansible-credentials'
-                )
-            }
-        }
-        stage('Debug') {
-            steps {
-                sh 'echo $PATH'
-                sh 'which ansible-playbook'
+                withCredentials([usernamePassword(credentialsId: 'ansible-credentials', usernameVariable: 'ANSIBLE_USER', passwordVariable: 'ANSIBLE_PASS')]) {
+                    ansiblePlaybook(
+                        playbook: 'ansible/start_applications.yml',
+                        inventory: 'inventory/hosts',
+                        extraVars: [
+                            ansible_ssh_pass: "${ANSIBLE_PASS}"
+                        ]
+                    )
+                }
             }
         }
     }
