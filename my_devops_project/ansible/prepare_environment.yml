@@ -80,10 +80,15 @@
   tasks:
     - name: Проверка наличия файла docker-compose.yml
       stat:
-        path: /home/alexander/Рабочий стол/DevOps/DevOps/docker-compose.yml
+        path: "/home/alexander/Рабочий стол/DevOps/DevOps/docker-compose.yml"
       register: docker_compose_file
 
     - name: Ошибка, если файл docker-compose.yml не найден
       fail:
         msg: "Файл docker-compose.yml не найден!"
       when: not docker_compose_file.stat.exists
+
+    - name: Запуск сервисов с помощью Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
