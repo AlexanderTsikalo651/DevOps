@@ -1,27 +1,30 @@
----
 - name: Prepare environment
   hosts: all
   become: yes
 
   tasks:
-  - name: Install Docker
-    apt:
-      name: docker-ce
-      state: latest
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: latest
 
-  - name: Install Docker Compose
-    get_url:
-      url: https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
-      dest: /usr/local/bin/docker-compose
-      mode: 'u+x'
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/latest/download/docker-compose-{{ ansible_os_family | lower }}-{{ ansible_architecture }}
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x'
 
-  - name: Clone repositories
-    git:
-      repo: 'https://github.com/AlexanderTsikalo651/frontend1.git'
-      dest: /home/alexander/Рабочий стол/DevOps/frontend1
-    git:
-      repo: 'https://github.com/AlexanderTsikalo651/backend1.git'
-      dest: /home/alexander/Рабочий стол/DevOps/backend1
-    git:
-      repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
-      dest: /home/alexander/Рабочий стол/DevOps/DevOps
+    - name: Clone frontend repository
+      git:
+        repo: 'https://github.com/AlexanderTsikalo651/frontend1.git'
+        dest: /home/alexander/Рабочий стол/DevOps/frontend1
+
+    - name: Clone backend repository
+      git:
+        repo: 'https://github.com/AlexanderTsikalo651/backend1.git'
+        dest: /home/alexander/Рабочий стол/DevOps/backend1
+
+    - name: Clone DevOps repository
+      git:
+        repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
+        dest: /home/alexander/Рабочий стол/DevOps/DevOps
