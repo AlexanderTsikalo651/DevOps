@@ -71,34 +71,3 @@
       git:
         repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
         dest: "{{ lookup('env', 'WORKSPACE') }}/DevOps"
-
-
-- name: Start applications
-  hosts: all
-  become: yes
-
-  tasks:
-    - name: Проверка наличия файла docker-compose.yml
-      stat:
-        path: "/home/alexander/Рабочий стол/DevOps/DevOps/docker-compose.yml"
-      register: docker_compose_file
-
-    - name: Ошибка, если файл docker-compose.yml не найден
-      fail:
-        msg: "Файл docker-compose.yml не найден!"
-      when: not docker_compose_file.stat.exists
-
-    - name: Запуск сервисов с помощью Docker Compose
-      command: docker-compose up -d
-      args:
-        chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
-
-    - name: Вывод логов контейнеров
-      command: docker-compose logs
-      args:
-        chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
-      register: compose_logs
-
-    - name: Печать логов
-      debug:
-        var: compose_logs.stdout
