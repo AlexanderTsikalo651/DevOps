@@ -7,35 +7,40 @@
       apt:
         name: docker.io
         state: latest
+        update_cache: yes
+
+    - name: Получение последней версии Docker Compose
+      command: "curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d '\"' -f 4"
+      register: compose_version
 
     - name: Установка Docker Compose
       get_url:
-        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+        url: "https://github.com/docker/compose/releases/download/{{ compose_version.stdout }}/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
         dest: /usr/local/bin/docker-compose
         mode: 'u+x'
 
-
-    - name: Clone frontend repository
+    - name: Клонирование фронтенд репозитория
       git:
         repo: 'https://github.com/AlexanderTsikalo651/frontend1.git'
         dest: /home/alexander/Рабочий стол/DevOps/frontend1
 
-    - name: Clone backend repository
+    - name: Клонирование бэкенд репозитория
       git:
         repo: 'https://github.com/AlexanderTsikalo651/backend1.git'
         dest: /home/alexander/Рабочий стол/DevOps/backend1
 
-    - name: Clone DevOps repository
+    - name: Клонирование репозитория DevOps
       git:
         repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
         dest: /home/alexander/Рабочий стол/DevOps/DevOps
+
 
 - name: Start applications
   hosts: all
   become: yes
 
   tasks:
-    - name: Start services with Docker Compose
+    - name: Запуск сервисов с помощью Docker Compose
       command: docker-compose up -d
       args:
         chdir: /home/alexander/Рабочий стол/DevOps/DevOps
