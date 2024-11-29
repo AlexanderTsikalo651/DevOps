@@ -3,11 +3,17 @@
   become: yes
 
   tasks:
-    - name: Установка Docker
+    - name: Проверка установки Docker
+      command: docker --version
+      register: docker_installed
+      ignore_errors: yes
+
+    - name: Установка Docker, если он не установлен
       apt:
         name: docker.io
         state: latest
         update_cache: yes
+      when: docker_installed.rc != 0
 
     - name: Получение последней версии Docker Compose
       command: "curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d '\"' -f 4"
