@@ -8,15 +8,11 @@
         name: docker-ce
         state: latest
 
-    - name: Get latest Docker Compose version
-      command: "curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d '\"' -f 4"
-      register: compose_version
-
-    - name: Install Docker Compose
-        get_url:
-          url: "https://github.com/docker/compose/releases/download/v2.31.0/docker-compose-{{ ansible_os_family | lower }}-{{ ansible_architecture }}"
-          dest: /usr/local/bin/docker-compose
-          mode: 'u+x'
+   - name: Установка Docker Compose
+     get_url:
+       url: https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
+       dest: /usr/local/bin/docker-compose
+       mode: 'u+x'
 
     - name: Clone frontend repository
       git:
@@ -32,7 +28,7 @@
       git:
         repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
         dest: /home/alexander/Рабочий стол/DevOps/DevOps
-        
+
 - name: Start applications
   hosts: all
   become: yes
