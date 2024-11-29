@@ -17,3 +17,13 @@
       command: docker-compose up -d
       args:
         chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
+
+    - name: Вывод логов контейнеров
+      command: docker-compose logs
+      args:
+        chdir: "/home/alexander/Рабочий стол/DevOps/DevOps"
+      register: compose_logs
+
+    - name: Печать логов
+      debug:
+        var: compose_logs.stdout
