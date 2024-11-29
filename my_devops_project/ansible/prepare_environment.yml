@@ -10,7 +10,7 @@
 
     - name: Install Docker Compose
       get_url:
-        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-{{ ansible_os_family | lower }}-{{ ansible_architecture }}"
+        url: "https://github.com/docker/compose/releases/download/v2.31.0/docker-compose-{{ ansible_os_family | lower }}-{{ ansible_architecture }}"
         dest: /usr/local/bin/docker-compose
         mode: 'u+x'
 
@@ -28,7 +28,7 @@
       git:
         repo: 'https://github.com/AlexanderTsikalo651/DevOps.git'
         dest: /home/alexander/Рабочий стол/DevOps/DevOps
-
+        
 - name: Start applications
   hosts: all
   become: yes
